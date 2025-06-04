@@ -1,0 +1,7 @@
+{
+  "modelName": "detect",
+  "inputClassName": "ai.djl.modality.cv.Image",
+  "outputClassName": "ai.djl.modality.cv.output.DetectedObjects",
+  "modelEngine": "PaddlePaddle",
+  "modelTranslator": "PpWordDetectionTranslator(ConcurrentHashMap())"
+}

@@ -1,0 +1,7 @@
+	{
+	  "modelName": "rotate",
+	  "inputClassName": "ai.djl.modality.cv.Image",
+	  "outputClassName": "ai.djl.modality.Classifications",
+	  "modelEngine": "PaddlePaddle",
+	  "modelTranslator": "PpWordRotateTranslator"
+	}

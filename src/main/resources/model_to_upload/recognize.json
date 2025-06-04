@@ -1,0 +1,7 @@
+{
+  "modelName": "recognize",
+  "inputClassName": "ai.djl.modality.cv.Image",
+  "outputClassName": "java.lang.String",
+  "modelEngine": "PaddlePaddle",
+  "modelTranslator": "PpWordRecognitionTranslator"
+}

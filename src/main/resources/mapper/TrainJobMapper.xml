@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrervip.super_ai_service.dao.TrainJobMapper">
+    <resultMap id="BaseResultMap" type="com.xrervip.super_ai_service.entity.TrainJobPO">
+        <result column="model_name" jdbcType="VARCHAR" property="trainModelName" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        job_id,status
+    </sql>
+
+    <insert id="insert" parameterType="com.xrervip.super_ai_service.entity.TrainJobPO">
+        insert into train_job(trainModelName,status)
+        values (#{trainModelName,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+    </insert>
+
+
+    <update id="update" parameterType="com.xrervip.super_ai_service.entity.TrainJobPO">
+        update train_job
+        values (#{status,jdbcType=VARCHAR})
+        where model_name = #{trainModelName,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByModelName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from train_job
+        where model_name = #{trainModelName,jdbcType=VARCHAR}
+    </select>
+</mapper>

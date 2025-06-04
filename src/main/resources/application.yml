@@ -1,0 +1,86 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      lettuce:
+        pool:
+          min-idle: 0
+          max-active: 8
+          max-idle: 8
+          max-wait: -1ms
+      connect-timeout: 1000
+
+  datasource:
+    name: deepLearning-datasource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&verifyServerCertificate=false&useSSL=true&allowMultiQueries=true&useAffectedRows=true
+    username: root
+    password: root
+    hikari:
+      pool-name: hikariCP
+      minimum-idle: 100
+      maximum-pool-size: 200
+      auto-commit: true
+      idle-timeout: 10000
+      max-lifetime: 30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  rabbitmq:
+    host: 127.0.0.1
+    listener:
+      simple:
+        auto-startup: true
+        concurrency: 10
+        default-requeue-rejected: true
+        max-concurrency: 10
+        prefetch: 1
+        acknowledge-mode: manual
+    password: guest
+    port: 5672
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
+        max-interval: 10000
+        multiplier: 1.0
+      mandatory: true
+    username: guest
+    virtual-host: /
+    publisher-confirm-type: correlated
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: super-ai-group
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude:
+          - loggers
+          - env
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml    # mapper映射文件位置
+model:
+  device-type: "gpu"

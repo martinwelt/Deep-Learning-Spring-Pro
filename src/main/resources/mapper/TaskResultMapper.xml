@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrervip.super_ai_service.dao.TaskResultMapper">
+
+    <resultMap id="TaskResultDOResultMap" type="com.xrervip.super_ai_service.entity.TaskResultDO">
+        <id property="resultId" column="result_id"/>
+        <result property="taskId" column="task_id"/>
+        <result property="resultData" column="result_data"/>
+        <result property="metadata" column="metadata"/>
+        <result property="storedAt" column="stored_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.xrervip.super_ai_service.entity.TaskResultDO"
+            useGeneratedKeys="true" keyProperty="resultId" keyColumn="result_id">
+        INSERT INTO task_results (task_id, result_data, metadata, stored_at)
+        VALUES (#{taskId}, #{resultData}, #{metadata}, COALESCE(#{storedAt}, CURRENT_TIMESTAMP))
+    </insert>
+
+    <!-- 示例：根据 taskId 查询结果 (假设返回单个或最新一个，具体逻辑可能更复杂) -->
+    <!--
+    <select id="findByTaskId" resultMap="TaskResultDOResultMap">
+        SELECT result_id, task_id, result_data, metadata, stored_at
+        FROM task_results
+        WHERE task_id = #{taskId}
+        ORDER BY stored_at DESC
+        LIMIT 1
+    </select>
+    -->
+
+</mapper>
